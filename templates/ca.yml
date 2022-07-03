@@ -1,0 +1,26 @@
+kind: Issuer
+apiVersion: cert-manager.io/v1
+metadata:
+  name: {{ include "common.names.fullname" . }}-selfsigned
+spec:
+  selfSigned: {}
+---
+kind: Certificate
+apiVersion: cert-manager.io/v1
+metadata:
+  name: {{ include "common.names.fullname" . }}-ca
+spec:
+  isCA: true
+  commonName: {{ include "common.names.fullname" . }} Certificate Authority Root
+  secretName: {{ include "common.names.fullname" . }}-ca-tls
+  privateKey:
+    algorithm: ECDSA
+    size: 521
+    rotationPolicy: Never
+  issuerRef:
+    name: {{ include "common.names.fullname" . }}-selfsigned
+    kind: Issuer
+    group: cert-manager.io
+  duration: '262800h' # 30y * 365d * 24h
+  # renewal with same private key will result in trust upkeep
+  renewBefore: '8763h' # 1y * 365d * 24h
