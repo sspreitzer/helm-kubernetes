@@ -4,3 +4,30 @@ cert-manager:
 
 etcd:
   enabled: true
+  replicaCount: 3
+  affinity:
+    podAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          podAffinityTerm:
+            topologyKey: topology.kubernetes.io/region
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
+              app.kubernetes.io/name: '{{ .Chart.Name }}'
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          podAffinityTerm:
+            topologyKey: topology.kubernetes.io/zone
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
+              app.kubernetes.io/name: '{{ .Chart.Name }}'
+        - weight: 2
+          podAffinityTerm:
+            topologyKey: kubernetes.io/hostname
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
+              app.kubernetes.io/name: '{{ .Chart.Name }}'
