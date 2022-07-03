@@ -1,0 +1,6 @@
+cert-manager:
+  enabled: false
+  installCRDs: true
+
+etcd:
+  enabled: true

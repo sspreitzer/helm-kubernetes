@@ -1,0 +1,25 @@
+apiVersion: v2
+name: kubernetes
+version: 1.24.2-0
+appVersion: 1.24.2
+description: Kubernetes in a Helm chart
+keywords:
+  - kubernets
+home: https://git.spreitzer.ch/helm/kubernetes
+sources:
+  - https://git.spreitzer.ch/helm/kubernetes.git
+  - https://github.com/sspreitzer/helm-kubernetes.git
+dependencies:
+  - name: cert-manager
+    version: v1.8.2
+    repository: https://charts.jetstack.io
+    condition: cert-manager.enabled
+  - name: etcd
+    version: 8.3.3
+    repository: https://charts.bitnami.com/bitnami
+    condition: etcd.enabled
+maintainers:
+  - name: Sascha Spreitzer
+    email: sascha@spreitzer.ch
+    url: https://spreitzer.ch
+icon: https://kubernetes.io/images/favicon.png
