@@ -24,10 +24,3 @@ spec:
   duration: '262800h' # 30y * 365d * 24h
   # renewal with same private key will result in trust upkeep
   renewBefore: '8763h' # 1y * 365d * 24h
-  secretTemplate:
-    metadata:
-      ownerReferences:
-        - apiVersion: cert-manager.io/v1
-          controller: true
-          kind: Certificate
-          name: {{ include "common.names.fullname" . }}-ca
