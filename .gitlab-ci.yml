@@ -1,0 +1,10 @@
+default:
+  image: alpine/helm
+
+helm:
+  script:
+    - apk --no-cache add curl && rm -rf /var/cache/apk/*
+    - CHART_VERSION="$(helm show chart . | grep '^version:' | awk '{print $2;}')"
+    - helm dependency update .
+    - helm package .
+    - 'curl --fail -u "${HARBOR_REPO_USER}:${HARBOR_REPO_TOKEN}" -X POST -H "Content-Type: multipart/form-data" -F "chart=@kubernetes-${CHART_VERSION}.tgz;type=application/x-compressed-tar" ${HARBOR_REPO_URL}'
