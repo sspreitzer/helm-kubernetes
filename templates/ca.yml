@@ -2,6 +2,7 @@ kind: Issuer
 apiVersion: cert-manager.io/v1
 metadata:
   name: {{ include "common.names.fullname" . }}-selfsigned
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
 spec:
   selfSigned: {}
 ---
@@ -9,6 +10,7 @@ kind: Certificate
 apiVersion: cert-manager.io/v1
 metadata:
   name: {{ include "common.names.fullname" . }}-ca
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
 spec:
   isCA: true
   commonName: {{ include "common.names.fullname" . }} Certificate Authority Root
