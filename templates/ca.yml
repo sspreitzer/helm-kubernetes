@@ -24,6 +24,6 @@ spec:
   duration: '262800h' # 30y * 365d * 24h
   # renewal with same private key will result in trust upkeep
   renewBefore: '8763h' # 1y * 365d * 24h
-  specTemplate:
+  certificateTemplate:
     labels:
       argocd.argoproj.io/instance: {{ .Release.Name }}
