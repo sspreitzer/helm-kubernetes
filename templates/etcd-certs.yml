@@ -1,5 +1,5 @@
 {{- if gt .Values.etcd.replicaCount 0 }}
-{{- range seq (.Values.etcd.replicaCount-1) }}
+{{- range seq (sub .Values.etcd.replicaCount 1) }}
 kind: Certificate
 apiVersion: cert-manager.io/v1
 metadata:
