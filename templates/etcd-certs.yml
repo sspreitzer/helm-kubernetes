@@ -9,7 +9,7 @@ metadata:
 spec:
   commonName: {{ include "common.names.fullname" $ }} etcd server {{ . }}
   secretName: {{ include "common.names.fullname" $ }}-etcd-server-{{ . }}-tls
-  dnsName:
+  dnsNames:
     - {{ include "common.names.fullname" $ }}-etcd
     - {{ include "common.names.fullname" $ }}-etcd.{{ $.Release.Namespace }}
     - {{ include "common.names.fullname" $ }}-etcd-{{ . }}
