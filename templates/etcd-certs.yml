@@ -38,7 +38,7 @@ metadata:
   name: {{ include "common.names.fullname" . }}-etcd-client
   labels: {{- include "common.labels.standard" . | nindent 4 }}
 spec:
-  commonName: {{ include "common.names.fullname" . }} etcd client
+  commonName: root
   secretName: {{ include "common.names.fullname" . }}-etcd-client-tls
   privateKey:
     algorithm: ECDSA
@@ -50,4 +50,6 @@ spec:
   usages:
     - signing
     - key encipherment
-    - server auth
+    - client auth
+  duration: {{ .Values.certificates.client.duration | quote }}
+  renewBefore: {{ .Values.certificates.client.renewBefore | quote }}
