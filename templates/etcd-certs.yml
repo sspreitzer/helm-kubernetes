@@ -1,5 +1,6 @@
 {{- if gt .Values.etcd.replicaCount 0.0 }}
-{{- range seq (sub .Values.etcd.replicaCount 1) }}
+{{- range until (int .Values.etcd.replicaCount) }}
+---
 kind: Certificate
 apiVersion: cert-manager.io/v1
 metadata:
@@ -26,8 +27,8 @@ spec:
     - signing
     - key encipherment
     - server auth
-  duration: {{ .Values.certificates.server.duration | quote }}
-  renewBefore: {{ .Values.certificates.server.renewBefore | quote }}
+  duration: {{ $.Values.certificates.server.duration | quote }}
+  renewBefore: {{ $.Values.certificates.server.renewBefore | quote }}
 {{- end }}
 {{- end }}
 ---
@@ -39,10 +40,6 @@ metadata:
 spec:
   commonName: {{ include "common.names.fullname" . }} etcd client
   secretName: {{ include "common.names.fullname" . }}-etcd-client-tls
-  dnsName:
-    {{- range seq 2 }}
-    - {{ include "common.names.fullname" . }}-etcd-{{ . }}
-    {{- end }}
   privateKey:
     algorithm: ECDSA
     rotationPolicy: Always
