@@ -5,16 +5,16 @@ cert-manager:
 certificates:
   ca:
     # 30y
-    duration: 262800h
+    duration: '262800h'
     # 1y
-    renewBefore: 8760h
+    renewBefore: '8760h'
   server:
-    duration: 8760h
+    duration: '8760h'
     # 31d
-    renewBefore: 744h
+    renewBefore: '744h'
   client:
-    duration: 8760h
-    renewBefore: 744h
+    duration: '8760h'
+    renewBefore: '744h'
 
 etcd:
   enabled: true
