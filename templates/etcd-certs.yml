@@ -1,0 +1,56 @@
+{{- if gt .Values.etcd.replicaCount 0 }}
+{{- range seq (.Values.etcd.replicaCount-1) }}
+kind: Certificate
+apiVersion: cert-manager.io/v1
+metadata:
+  name: {{ include "common.names.fullname" $. }}-etcd-server
+  labels: {{- include "common.labels.standard" $. | nindent 4 }}
+spec:
+  commonName: {{ include "common.names.fullname" $. }} etcd server {{ . }}
+  secretName: {{ include "common.names.fullname" $. }}-etcd-server-{{ . }}-tls
+  dnsName:
+    - {{ include "common.names.fullname" $. }}-etcd
+    - {{ include "common.names.fullname" $. }}-etcd.{{ $.Release.Namespace }}
+    - {{ include "common.names.fullname" $. }}-etcd-{{ . }}
+    - {{ include "common.names.fullname" $. }}-etcd-{{ . }}.{{ $.Release.Namespace }}
+    - {{ include "common.names.fullname" $. }}-etcd-headless
+    - {{ include "common.names.fullname" $. }}-etcd-headless.{{ $.Release.Namespace }}
+  privateKey:
+    algorithm: ECDSA
+    rotationPolicy: Always
+  issuerRef:
+    name: {{ include "common.names.fullname" $. }}-ca
+    kind: Issuer
+    group: cert-manager.io
+  usages:
+    - signing
+    - key encipherment
+    - server auth
+  duration: {{ .Values.certificates.server.duration | quote }}
+  renewBefore: {{ .Values.certificates.server.renewBefore | quote }}
+{{- end }}
+{{- end }}
+---
+kind: Certificate
+apiVersion: cert-manager.io/v1
+metadata:
+  name: {{ include "common.names.fullname" . }}-etcd-client
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+spec:
+  commonName: {{ include "common.names.fullname" . }} etcd client
+  secretName: {{ include "common.names.fullname" . }}-etcd-client-tls
+  dnsName:
+    {{- range seq 2 }}
+    - {{ include "common.names.fullname" . }}-etcd-{{ . }}
+    {{- end }}
+  privateKey:
+    algorithm: ECDSA
+    rotationPolicy: Always
+  issuerRef:
+    name: {{ include "common.names.fullname" . }}-ca
+    kind: Issuer
+    group: cert-manager.io
+  usages:
+    - signing
+    - key encipherment
+    - server auth
