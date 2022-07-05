@@ -14,4 +14,5 @@ spec:
       labels:
         component: kube-apiserver
     spec:
-      containers: []
+      containers:
+        - name: kube-apiserver
