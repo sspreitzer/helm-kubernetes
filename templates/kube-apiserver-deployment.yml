@@ -16,3 +16,4 @@ spec:
     spec:
       containers:
         - name: kube-apiserver
+          image: k8s.gcr.io/kube-apiserver:v{{ .Chart.AppVersion }}
