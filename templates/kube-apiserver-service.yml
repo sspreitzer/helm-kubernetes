@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ include "common.names.fullname" . }}-kube-apiserver
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+    component: kube-apiserver
+spec:
+  selector:
+    component: kube-apiserver
