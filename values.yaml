@@ -22,7 +22,7 @@ etcd:
   auth:
     client:
       secureTransport: true
-      existingSecret: '{{ .Release.Name }}-kubernetes-etcd-client-tls'
+      existingSecret: '{{ .Release.Name }}-kubernetes-etcd-server-tls'
       enableAuthentication: true
       certFilename: tls.crt
       certKeyFilename: tls.key
