@@ -8,14 +8,15 @@ spec:
   commonName: {{ include "common.names.fullname" . }} etcd server
   secretName: {{ include "common.names.fullname" . }}-etcd-server-tls
   dnsNames:
-    - {{ include "common.names.fullname" . }}-etcd
-    - {{ include "common.names.fullname" . }}-etcd.{{ .Release.Namespace }}
-    - {{ include "common.names.fullname" . }}-etcd-headless
-    - {{ include "common.names.fullname" . }}-etcd-headless.{{ .Release.Namespace }}
+    - {{ .Release.Name }}-etcd
+    - {{ .Release.Name }}-etcd.{{ .Release.Namespace }}
+    - {{ .Release.Name }}-etcd-headless
+    - {{ .Release.Name }}-etcd-headless.{{ .Release.Namespace }}
 {{- if gt .Values.etcd.replicaCount 0.0 }}
 {{- range until (int .Values.etcd.replicaCount) }}
-    - {{ include "common.names.fullname" $ }}-etcd-{{ . }}
-    - {{ include "common.names.fullname" $ }}-etcd-{{ . }}.{{ $.Release.Namespace }}
+    - {{ $.Release.Name }}-etcd-{{ . }}
+    - {{ $.Release.Name }}-etcd-{{ . }}.{{ $.Release.Namespace }}
+    - {{ $.Release.Name }}-etcd-{{ . }}.{{ .Release.Name }}-etcd-headless.{{ $.Release.Namespace }}
 {{- end }}
 {{- end }}
   privateKey:
