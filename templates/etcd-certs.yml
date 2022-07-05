@@ -17,6 +17,7 @@ spec:
     - {{ $.Release.Name }}-etcd-{{ . }}
     - {{ $.Release.Name }}-etcd-{{ . }}.{{ $.Release.Namespace }}
     - {{ $.Release.Name }}-etcd-{{ . }}.{{ $.Release.Name }}-etcd-headless.{{ $.Release.Namespace }}
+    - {{ $.Release.Name }}-etcd-{{ . }}.{{ $.Release.Name }}-etcd-headless.{{ $.Release.Namespace }}.svc.cluster.local
 {{- end }}
 {{- end }}
   privateKey:
