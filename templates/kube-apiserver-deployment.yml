@@ -7,7 +7,8 @@ metadata:
 spec:
   replicas: {{ .Values.apiserver.replicaCount }}
   selector:
-    component: kube-apiserver
+    matchLabels:
+      component: kube-apiserver
   template:
     spec:
       containers: []
