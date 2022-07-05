@@ -24,10 +24,16 @@ etcd:
       secureTransport: true
       existingSecret: '{{ include "common.names.fullname" . }}-etcd-client-tls'
       enableAuthentication: true
+      certFilename: tls.crt
+      certKeyFilename: tls.key
+      caFilename: ca.crt
     peer:
       secureTransport: true
       existingSecret: '{{ include "common.names.fullname" . }}-etcd-server-tls'
       enableAuthentication: true
+      certFilename: tls.crt
+      certKeyFilename: tls.key
+      caFilename: ca.crt
     rbac:
       create: false
     token:
