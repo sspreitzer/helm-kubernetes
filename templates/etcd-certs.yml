@@ -10,13 +10,20 @@ spec:
   dnsNames:
     - {{ .Release.Name }}-etcd
     - {{ .Release.Name }}-etcd.{{ .Release.Namespace }}
+    - {{ .Release.Name }}-etcd.{{ .Release.Namespace }}.svc
+    - {{ .Release.Name }}-etcd.{{ .Release.Namespace }}.svc.cluster.local
     - {{ .Release.Name }}-etcd-headless
     - {{ .Release.Name }}-etcd-headless.{{ .Release.Namespace }}
+    - {{ .Release.Name }}-etcd-headless.{{ .Release.Namespace }}.svc
+    - {{ .Release.Name }}-etcd-headless.{{ .Release.Namespace }}.svc.cluster.local
 {{- if gt .Values.etcd.replicaCount 0.0 }}
 {{- range until (int .Values.etcd.replicaCount) }}
     - {{ $.Release.Name }}-etcd-{{ . }}
     - {{ $.Release.Name }}-etcd-{{ . }}.{{ $.Release.Namespace }}
+    - {{ $.Release.Name }}-etcd-{{ . }}.{{ $.Release.Namespace }}.svc
+    - {{ $.Release.Name }}-etcd-{{ . }}.{{ $.Release.Namespace }}.svc.cluster.local
     - {{ $.Release.Name }}-etcd-{{ . }}.{{ $.Release.Name }}-etcd-headless.{{ $.Release.Namespace }}
+    - {{ $.Release.Name }}-etcd-{{ . }}.{{ $.Release.Name }}-etcd-headless.{{ $.Release.Namespace }}.svc
     - {{ $.Release.Name }}-etcd-{{ . }}.{{ $.Release.Name }}-etcd-headless.{{ $.Release.Namespace }}.svc.cluster.local
 {{- end }}
 {{- end }}
