@@ -4,6 +4,13 @@ metadata:
   name: {{ include "common.names.fullname" . }}-kube-apiserver
   labels: {{- include "common.labels.standard" . | nindent 4 }}
     component: kube-apiserver
+  annotations:
+    service.kubernetes.io/topology-aware-hints: auto
 spec:
+  ports:
+    - name: api
+      port: 6443
+      targetPort: 6443
   selector:
     component: kube-apiserver
+  type: ClusterIP
