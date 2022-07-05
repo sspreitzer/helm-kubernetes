@@ -16,7 +16,7 @@ spec:
 {{- range until (int .Values.etcd.replicaCount) }}
     - {{ $.Release.Name }}-etcd-{{ . }}
     - {{ $.Release.Name }}-etcd-{{ . }}.{{ $.Release.Namespace }}
-    - {{ $.Release.Name }}-etcd-{{ . }}.{{ .Release.Name }}-etcd-headless.{{ $.Release.Namespace }}
+    - {{ $.Release.Name }}-etcd-{{ . }}.{{ $.Release.Name }}-etcd-headless.{{ $.Release.Namespace }}
 {{- end }}
 {{- end }}
   privateKey:
