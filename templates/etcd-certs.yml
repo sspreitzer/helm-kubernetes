@@ -30,6 +30,7 @@ spec:
   usages:
     - signing
     - key encipherment
+    - client auth
     - server auth
   duration: {{ .Values.certificates.server.duration | quote }}
   renewBefore: {{ .Values.certificates.server.renewBefore | quote }}
