@@ -16,6 +16,9 @@ certificates:
     duration: '8760h'
     renewBefore: '744h'
 
+apiserver:
+  replicaCount: 3
+
 etcd:
   enabled: true
   replicaCount: 3
