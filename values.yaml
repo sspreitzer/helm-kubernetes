@@ -22,11 +22,11 @@ etcd:
   auth:
     client:
       secureTransport: true
-      existingSecret: '{{ include "common.names.fullname" . }}-etcd-client'
+      existingSecret: '{{ include "common.names.fullname" . }}-etcd-client-tls'
       enableAuthentication: true
     peer:
       secureTransport: true
-      existingSecret: '{{ include "common.names.fullname" . }}-etcd-server'
+      existingSecret: '{{ include "common.names.fullname" . }}-etcd-server-tls'
       enableAuthentication: true
     rbac:
       create: false
