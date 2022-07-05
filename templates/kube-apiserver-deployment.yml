@@ -10,5 +10,8 @@ spec:
     matchLabels:
       component: kube-apiserver
   template:
+    metadata:
+      labels:
+        component: kube-apiserver
     spec:
       containers: []
