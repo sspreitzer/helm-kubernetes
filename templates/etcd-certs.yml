@@ -1,36 +1,36 @@
-{{- if gt .Values.etcd.replicaCount 0.0 }}
-{{- range until (int .Values.etcd.replicaCount) }}
 ---
 kind: Certificate
 apiVersion: cert-manager.io/v1
 metadata:
-  name: {{ include "common.names.fullname" $ }}-etcd-server-{{ . }}
-  labels: {{- include "common.labels.standard" $ | nindent 4 }}
+  name: {{ include "common.names.fullname" . }}-etcd-server
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
 spec:
-  commonName: {{ include "common.names.fullname" $ }} etcd server {{ . }}
-  secretName: {{ include "common.names.fullname" $ }}-etcd-server-{{ . }}-tls
+  commonName: {{ include "common.names.fullname" . }} etcd server
+  secretName: {{ include "common.names.fullname" . }}-etcd-server-tls
   dnsNames:
-    - {{ include "common.names.fullname" $ }}-etcd
-    - {{ include "common.names.fullname" $ }}-etcd.{{ $.Release.Namespace }}
+    - {{ include "common.names.fullname" . }}-etcd
+    - {{ include "common.names.fullname" . }}-etcd.{{ .Release.Namespace }}
+    - {{ include "common.names.fullname" . }}-etcd-headless
+    - {{ include "common.names.fullname" . }}-etcd-headless.{{ .Release.Namespace }}
+{{- if gt .Values.etcd.replicaCount 0.0 }}
+{{- range until (int .Values.etcd.replicaCount) }}
     - {{ include "common.names.fullname" $ }}-etcd-{{ . }}
     - {{ include "common.names.fullname" $ }}-etcd-{{ . }}.{{ $.Release.Namespace }}
-    - {{ include "common.names.fullname" $ }}-etcd-headless
-    - {{ include "common.names.fullname" $ }}-etcd-headless.{{ $.Release.Namespace }}
+{{- end }}
+{{- end }}
   privateKey:
     algorithm: ECDSA
     rotationPolicy: Always
   issuerRef:
-    name: {{ include "common.names.fullname" $ }}-ca
+    name: {{ include "common.names.fullname" . }}-ca
     kind: Issuer
     group: cert-manager.io
   usages:
     - signing
     - key encipherment
     - server auth
-  duration: {{ $.Values.certificates.server.duration | quote }}
-  renewBefore: {{ $.Values.certificates.server.renewBefore | quote }}
-{{- end }}
-{{- end }}
+  duration: {{ .Values.certificates.server.duration | quote }}
+  renewBefore: {{ .Values.certificates.server.renewBefore | quote }}
 ---
 kind: Certificate
 apiVersion: cert-manager.io/v1

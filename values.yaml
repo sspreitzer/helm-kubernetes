@@ -19,6 +19,19 @@ certificates:
 etcd:
   enabled: true
   replicaCount: 3
+  auth:
+    client:
+      secureTransport: true
+      existingSecret: '{{ include "common.names.fullname" . }}-etcd-client'
+      enableAuthentication: true
+    peer:
+      secureTransport: true
+      existingSecret: '{{ include "common.names.fullname" . }}-etcd-server'
+      enableAuthentication: true
+    rbac:
+      create: false
+    token:
+      type: simple
   affinity:
     podAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
